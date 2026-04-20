@@ -4,10 +4,12 @@ import java.util.Scanner;
 /**
  * TicTacToe
  * Name- Deepti Jana
- * UC4 Convert Slot Number to Row and Column
+ * UC5 Validate User Move
  */
 
 public class TicTacToe {
+
+    static char[][] board = new char[3][3];
 
     static boolean isHumanTurn;
     static char humanSymbol;
@@ -17,18 +19,31 @@ public class TicTacToe {
 
     public static void main(String[] args) {
 
+        initializeBoard();
+
         tossAndAssignSymbols();
         displayTossResult();
 
         int slot = acceptUserInput();
 
-        int row = getRow(slot);      // UC4
-        int col = getColumn(slot);   // UC4
+        int row = getRow(slot);
+        int col = getColumn(slot);
 
-        System.out.println("Row: " + row);
-        System.out.println("Column: " + col);
+        if (validateMove(row, col)) {
+            System.out.println("Valid Move");
+        } else {
+            System.out.println("Invalid Move");
+        }
     }
 
+    static void initializeBoard() {
+
+        for (int row = 0; row < 3; row++) {
+            for (int col = 0; col < 3; col++) {
+                board[row][col] = '-';
+            }
+        }
+    }
 
     static void tossAndAssignSymbols() {
 
@@ -59,15 +74,11 @@ public class TicTacToe {
         System.out.println("Computer Symbol: " + computerSymbol);
     }
 
-
     static int acceptUserInput() {
 
         System.out.print("Enter slot number (1-9): ");
-        int slot = scanner.nextInt();
-
-        return slot;
+        return scanner.nextInt();
     }
-
 
     static int getRow(int slot) {
         return (slot - 1) / 3;
@@ -75,5 +86,17 @@ public class TicTacToe {
 
     static int getColumn(int slot) {
         return (slot - 1) % 3;
+    }
+
+    static boolean validateMove(int row, int col) {
+
+        if (row < 0 || row > 2 || col < 0 || col > 2) {
+            return false;
+        }
+        if (board[row][col] != '-') {
+            return false;
+        }
+
+        return true;
     }
 }
