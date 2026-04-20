@@ -4,7 +4,7 @@ import java.util.Scanner;
 /**
  * TicTacToe
  * Name- Deepti Jana
- * UC3 Accept User Slot Input (1–9)
+ * UC4 Convert Slot Number to Row and Column
  */
 
 public class TicTacToe {
@@ -20,13 +20,16 @@ public class TicTacToe {
         tossAndAssignSymbols();
         displayTossResult();
 
-        int slot = acceptUserInput();   // UC3
-        System.out.println("User selected slot: " + slot);
+        int slot = acceptUserInput();
+
+        int row = getRow(slot);      // UC4
+        int col = getColumn(slot);   // UC4
+
+        System.out.println("Row: " + row);
+        System.out.println("Column: " + col);
     }
 
-    /**
-     * UC2 Toss Logic
-     */
+
     static void tossAndAssignSymbols() {
 
         Random random = new Random();
@@ -59,10 +62,18 @@ public class TicTacToe {
 
     static int acceptUserInput() {
 
-        System.out.println("Enter slot number (1-9): ");
-
+        System.out.print("Enter slot number (1-9): ");
         int slot = scanner.nextInt();
 
         return slot;
+    }
+
+
+    static int getRow(int slot) {
+        return (slot - 1) / 3;
+    }
+
+    static int getColumn(int slot) {
+        return (slot - 1) % 3;
     }
 }
